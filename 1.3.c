@@ -20,6 +20,7 @@ list_element* list_new ()
 void list_delete (list_element* ad)
 {
     list_element* netx;
+    list_element* add;
     netx = ad;
     while ( netx != NULL)
     {
@@ -31,7 +32,7 @@ void list_delete (list_element* ad)
 
 void push (list_element* netx, list_element* a)
 {
-    list_element* netx = a;
+
     while ( netx->next != NULL)
     {
         netx = netx->next;
@@ -60,23 +61,23 @@ void unshift (list_element* add, list_element* e)
     e->prev = NULL;
 }
 
-list_element shift (list_element* add)
+list_element* shift (list_element* add)
 {
-    return add;
+    return add->next;
 }
 
 void reverse (list_element* add)
 {
-    list_element* ad = list_new
-                       list_element* netx = add;
+    list_element* ad = list_new;
+    list_element* netx = add;
     while ( netx->next != NULL)
     {
         netx = netx->next;
     }
     ad = add;
-    list_element e = ad;
+    list_element* e = ad;
 
-    while (e != NULL) //здесь условие надо допилить
+    while (netx->prev != NULL) 
     {
         e->next = netx;
         netx->prev = e;
