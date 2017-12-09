@@ -1,4 +1,4 @@
-#include <stdio.h> //допилить ретёрны нуля или единицы функциями
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct list_element
