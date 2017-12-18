@@ -119,6 +119,7 @@ int main ()
         printf("ошибка открытия notebook.txt");
         return 0;
     }
+    printf("To save all changes and shutdown write shutdown.\n");
     int i = 0;
     char command[6], name[10], number[12];
     list_element* notebook = list_new();
@@ -135,7 +136,7 @@ int main ()
         if (strcmp(command, "shutdown") == 0)
         {
             printf("%s", notebook->name);
-            mynotebook = fopen("notebook.txt", "w");
+            mynotebook = fopen("notebook.txt", "w"); //В ПАПКЕ ПРОГРАММЫ ДОЛЖЕН ЛЕЖАТЬ ФАЙЛ notebook.txt, В КОНЦЕ ФАЙЛА ДОЛЖЕН БЫТЬ СИМВОЛ #
             write_to_file_from_list(notebook, mynotebook);
             fclose(mynotebook);
 
@@ -185,3 +186,4 @@ int main ()
 
     }
 }
+
