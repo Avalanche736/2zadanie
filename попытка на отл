@@ -1,0 +1,242 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+
+
+
+
+typedef struct list_store
+{
+    int mass;
+    char name [20];
+    struct list_store* next;
+    struct list_store* prev;
+} list_store;
+
+void push_store (list_store* netx, list_store* a)
+{
+
+    while ( netx->next != NULL)
+    {
+        netx = netx->next;
+    }
+    netx->next = a;
+    a->prev = netx;
+    a->next = NULL;
+}
+
+list_store* new_store ()
+{
+
+    list_store* ad = malloc(sizeof(list_store));
+    ad->next = NULL;
+    ad->prev = NULL;
+    return ad;
+}
+
+void delete_store (list_store* ad)
+{
+    list_store* netx;
+    list_store* add;
+    netx = ad;
+    while ( netx != NULL)
+    {
+        add = netx->next;
+        free(netx);
+        netx = add;
+    }
+}
+
+void write_to_list_from_file_store (list_store* list, FILE* file) //первый элемент списка служебный
+{
+
+    char name[20];
+    list_store* e1 = new_store();
+
+
+    while(fscanf(file, "%d", &e1->mass) != EOF)
+    {
+        fscanf(file, "%s", e1->name);
+        push_store (list, e1);
+        e1 = new_store();
+    }
+}
+
+
+
+
+typedef struct list_address
+{
+    int x;
+    int y;
+    int mass;
+    char name [20];
+    double distance;
+    struct list_element* next;
+    struct list_element* prev;
+} list_address;
+
+void push_address (list_address* netx, list_address* a)
+{
+
+    while ( netx->next != NULL)
+    {
+        netx = netx->next;
+    }
+    netx->next = a;
+    a->prev = netx;
+    a->next = NULL;
+}
+
+list_address* new_address ()
+{
+
+    list_address* add = malloc(sizeof(list_address));
+    add->next = NULL;
+    add->prev = NULL;
+    return add;
+}
+
+void write_to_list_from_file_address (list_address* list, FILE* file) //первый элемент списка служебный
+{
+
+    char name[20];
+    list_address* e2;
+    e2 = new_address();
+
+
+    while(fscanf(file, "%d", &e2->x) != EOF)
+    {
+        fscanf(file, "%d", &e2->y);
+        fscanf(file, "%d", &e2->mass);
+        fscanf(file, "%s", e2->name);
+        push_address (list, e2);
+        e2 = new_address();
+    }
+}
+
+
+
+void delete_address (list_address* ad)
+{
+    list_address* netx;
+    list_address* add;
+    netx = ad;
+    while ( netx != NULL)
+    {
+        add = netx->next;
+        free(netx);
+        netx = add;
+    }
+}
+
+
+
+typedef struct list_garage
+{
+    int number;
+    int hod;
+    int gruz;
+    struct list_element* next;
+    struct list_element* prev;
+} list_garage;
+
+void push_garage (list_garage* netx, list_garage* a)
+{
+
+    while ( netx->next != NULL)
+    {
+        netx = netx->next;
+    }
+    netx->next = a;
+    a->prev = netx;
+    a->next = NULL;
+}
+
+
+list_garage* new_garage ()
+{
+
+    list_garage* ad = malloc(sizeof(list_garage));
+    ad->next = NULL;
+    ad->prev = NULL;
+    return ad;
+}
+
+void write_to_list_from_file_garage (list_garage* list, FILE* file) //первый элемент списка служебный
+{
+    char name[20];
+    list_garage* e1 = new_garage();
+
+
+    while(fscanf(file, "%d", e1->number) != EOF)
+    {
+        fscanf(file, "%d", &e1->hod);
+        fscanf(file, "%d", &e1->gruz);
+        push_garage(list, e1);
+        e1 = new_garage();
+    }
+}
+
+
+
+void delete_garage (list_garage* ad)
+{
+    list_garage* netx;
+    list_garage* add;
+    netx = ad;
+    while ( netx != NULL)
+    {
+        add = netx->next;
+        free(netx);
+        netx = add;
+    }
+}
+
+
+
+list_address* mix_store_address (list_address* address, list_store* store)
+{
+    int n = -1;
+    list_store* kstore;
+    kstore = store;
+
+
+    while ( kstore != NULL)
+    {
+        kstore = kstore->next;
+        n++;
+    }
+    kstore = store->next;
+    list_address* kaddress = address->next;
+
+    int i;
+
+    for(i = 0; i < n; i++)
+    {
+
+        while (strcmp(kaddress->name, kstore->name) != 0)
+        {
+            kaddress = kaddress->next;
+        }
+        kaddress->mass = kstore->mass;
+        kaddress->distance = sqrt( pow(kaddress->x,2) + pow(kaddress->y,2));
+        kstore = kstore->next;
+    }
+    return address;
+}
+
+
+
+
+
+
+
+
+
+int main()
+{
+
+}
